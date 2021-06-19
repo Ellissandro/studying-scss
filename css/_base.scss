@@ -1,0 +1,107 @@
+$text-color: orange;
+$text-color2: #04d361;
+
+h1 {
+    color: $text-color2;
+}
+
+@mixin box-shadow($color) {
+    box-shadow: 2px 3px 4px 1px $color;
+}
+
+@mixin text-effect($val) {
+    @if $val == danger {
+        color: red;
+    } @else if $val == alert {
+        color: yellow;
+    } @else {
+        color: black;
+    }
+}
+
+body {
+    background-color: #121214;
+    color: $text-color;
+}
+
+.container {
+    @include box-shadow(rgba(#000, 0.6));
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    $text-color: blue;
+
+    p {
+        @include box-shadow(rgba(#000, 0.6));
+        background-color: #8159c1;
+        height: 100px;
+        width: 100px;
+        color: $text-color;
+        @include text-effect(danger);
+    }
+}
+
+@for $i from 1 through 5 {
+    .text-#{$i} {
+        font-size: 15px * $i;
+    }
+}
+
+//key and values
+$colors: (
+    color1: blue,
+    color2: red,
+    color3: yellow,
+);
+
+@each $key, $color in $colors {
+    .#{$color}-text-light {
+        color: lighten($color, 30);
+    }
+}
+
+@each $key, $color in $colors {
+    .#{$color}-text {
+        color: $color;
+    }
+
+    .#{$key}-text {
+        color: $color;
+    }
+}
+
+//values
+$colors: (black, purple, green);
+
+@each $color in $colors {
+    .#{$color}-text {
+        color: $color;
+    }
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+}
+
+.extend {
+    @extend .flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.outher {
+    p {
+        color: red;
+        cursor: pointer;
+
+        &:hover {
+            color: blue;
+        }
+        &.new {
+            color: orang;
+        }
+    }
+}
